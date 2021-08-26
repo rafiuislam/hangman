@@ -15,19 +15,24 @@ def hangman():
     letters_used = set() # user guessed
     alphabet = set(string.ascii_uppercase)
 
-    user_letter = input("Guess a Letter: ").upper()
+    while len(letters_word) > 0:
+        print('Letters already used: ', ' '.join(letters_used))
 
-    if user_letter in alphabet - letters_used:
-        letters_used.add(user_letter)
-        if user_letter in letters_word:
-            letters_word.remove(user_letter)
-    
-    elif letters_word in letters_used:
-        print("Please try again, (already used that letter).")
+        list_of_word = [letter if letter in letters_used else '-' for letter in word]
+        print(f'Current Word: ', ' '.join(list_of_word))
 
-    else: 
-        print("Please try again, (Invalid character).")
+        user_letter = input("Guess a Letter: ").upper()
+        if user_letter in alphabet - letters_used:
+            letters_used.add(user_letter)
+            if user_letter in letters_word:
+                letters_word.remove(user_letter)
+        
+        elif user_letter in letters_used:
+            print("Please try again, (already used that letter).")
 
+        else: 
+            print("Please try again, (Invalid character).")
 
-user = input('Please input something: ')
-print(user)
+    print(f"The word was {word}")
+
+hangman()
